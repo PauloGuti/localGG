@@ -1,0 +1,27 @@
+{
+  "name": "localgg",
+  "private": true,
+  "version": "0.0.1",
+  "description": "Compañero open source y local para League of Legends",
+  "license": "MIT",
+  "packageManager": "pnpm@10.33.0",
+  "scripts": {
+    "dev": "pnpm --filter @localgg/desktop dev",
+    "dev:mock": "LOCALGG_MOCK=1 pnpm --filter @localgg/desktop dev",
+    "build": "pnpm --filter @localgg/desktop build",
+    "test": "pnpm -r test",
+    "typecheck": "pnpm -r typecheck"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.5",
+    "typescript": "^7.0.2",
+    "vitest": "^5.0.4"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "electron",
+      "electron-winstaller",
+      "esbuild"
+    ]
+  }
+}

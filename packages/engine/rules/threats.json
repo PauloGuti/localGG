@@ -1,0 +1,11 @@
+{
+  "healers": [
+    "Soraka", "Aatrox", "Sylas", "Vladimir", "Warwick", "DrMundo", "Olaf", "Swain",
+    "Briar", "Yuumi", "Sona", "Seraphine", "Nami", "Kayn", "Fiora", "Irelia",
+    "Illaoi", "Nasus", "Trundle", "Zac", "Maokai", "Renekton", "Samira", "Ivern"
+  ],
+  "thresholds": {
+    "damageShareHeavy": 0.65,
+    "healersForStrongAntiheal": 2
+  }
+}

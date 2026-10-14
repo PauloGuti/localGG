@@ -1,0 +1,11 @@
+html, body { margin: 0; background: transparent; font: 13px/1.35 -apple-system, "Segoe UI", sans-serif; color: #e8ecf4; user-select: none; overflow: hidden; }
+.card { margin: 4px; padding: 8px 10px; border-radius: 10px; background: rgba(12, 16, 28, 0.78); border: 1px solid rgba(120, 160, 255, 0.25); }
+.head { display: flex; justify-content: space-between; font-size: 11px; opacity: 0.75; margin-bottom: 4px; }
+.gold { color: #f3c969; font-weight: 600; }
+.row { display: flex; align-items: center; gap: 8px; padding: 3px 0; }
+.row img { width: 28px; height: 28px; border-radius: 4px; }
+.row .name { font-weight: 600; }
+.row .why { font-size: 11px; opacity: 0.7; }
+.tag { font-size: 10px; padding: 1px 5px; border-radius: 4px; margin-left: 6px; background: rgba(120,160,255,.25); }
+.tag.now { background: rgba(80, 200, 120, .35); }
+.muted { opacity: 0.6; font-size: 12px; }

@@ -1,0 +1,30 @@
+{
+  "_doc": "for: roles that benefit from the item. ad = attack damage carry/fighter, ap = mage/ability power, tank = tank/frontline.",
+  "maxMissingGold": 1500,
+  "antiheal": [
+    { "name": "Executioner's Calling", "for": ["ad", "tank"] },
+    { "name": "Mortal Reminder", "for": ["ad"] },
+    { "name": "Chempunk Chainsword", "for": ["ad", "tank"] },
+    { "name": "Oblivion Orb", "for": ["ap"] },
+    { "name": "Morellonomicon", "for": ["ap"] },
+    { "name": "Bramble Vest", "for": ["tank"] },
+    { "name": "Thornmail", "for": ["tank"] }
+  ],
+  "armor": [
+    { "name": "Plated Steelcaps", "for": ["ad", "tank"] },
+    { "name": "Zhonya's Hourglass", "for": ["ap"] },
+    { "name": "Seeker's Armguard", "for": ["ap"] },
+    { "name": "Frozen Heart", "for": ["tank"] },
+    { "name": "Randuin's Omen", "for": ["tank"] },
+    { "name": "Thornmail", "for": ["tank"] },
+    { "name": "Dead Man's Plate", "for": ["tank", "ad"] }
+  ],
+  "magicResist": [
+    { "name": "Mercury's Treads", "for": ["ad", "ap", "tank"] },
+    { "name": "Banshee's Veil", "for": ["ap"] },
+    { "name": "Maw of Malmortius", "for": ["ad"] },
+    { "name": "Wit's End", "for": ["ad"] },
+    { "name": "Spirit Visage", "for": ["tank"] },
+    { "name": "Force of Nature", "for": ["tank"] }
+  ]
+}

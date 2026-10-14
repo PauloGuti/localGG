@@ -1,0 +1,36 @@
+{
+  "name": "@localgg/desktop",
+  "version": "0.0.1",
+  "private": true,
+  "description": "localGG desktop app",
+  "main": "./out/main/index.js",
+  "scripts": {
+    "dev": "electron-vite dev",
+    "build": "electron-vite build",
+    "typecheck": "tsc -p .",
+    "pack": "electron-vite build && electron-builder --dir",
+    "dist": "electron-vite build && electron-builder",
+    "release": "electron-vite build && electron-builder --publish always"
+  },
+  "dependencies": {
+    "@localgg/data": "workspace:*",
+    "@localgg/engine": "workspace:*",
+    "@localgg/liveclient": "workspace:*",
+    "electron-updater": "^6.8.9"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.5",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "@vitejs/plugin-react": "^6.1.2",
+    "electron": "^44.7.2",
+    "electron-builder": "^26.15.3",
+    "electron-vite": "^6.0.0",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
+    "typescript": "^7.0.2",
+    "vite": "^8.3.4"
+  },
+  "author": "localGG contributors",
+  "homepage": "https://github.com/PauloGuti/localGG"
+}
