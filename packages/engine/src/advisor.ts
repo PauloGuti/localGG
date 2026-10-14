@@ -9,6 +9,8 @@ interface Candidate {
   reason: string
 }
 
+const label = (catalog: Catalog, item: ItemData): string => catalog.itemNames?.[item.id] ?? item.name
+
 function byName(catalog: Catalog, name: string): ItemData | undefined {
   return Object.values(catalog.items).find((i) => i.name === name && i.gold.purchasable)
 }
@@ -71,12 +73,12 @@ export function advise(snapshot: GameSnapshot, catalog: Catalog, maxSuggestions 
     const missing = Math.max(0, item.gold.total - ownedValue - snapshot.gold)
     let suggestion: Suggestion
     if (missing === 0) {
-      suggestion = { kind: 'buy-now', itemId: item.id, itemName: item.name, missingGold: 0, reason: c.reason, score: c.weight + 0.3 }
+      suggestion = { kind: 'buy-now', itemId: item.id, itemName: item.name, displayName: label(catalog, item), missingGold: 0, reason: c.reason, score: c.weight + 0.3 }
     } else {
       const comp = affordableComponent(item, snapshot.gold, owned, catalog)
       suggestion = comp
-        ? { kind: 'component', itemId: comp.id, itemName: comp.name, missingGold: missing, reason: `${c.reason} → camino a ${item.name}`, score: c.weight + 0.1 }
-        : { kind: 'save', itemId: item.id, itemName: item.name, missingGold: missing, reason: c.reason, score: c.weight - missing / 10000 }
+        ? { kind: 'component', itemId: comp.id, itemName: comp.name, displayName: label(catalog, comp), missingGold: missing, reason: `${c.reason} → camino a ${label(catalog, item)}`, score: c.weight + 0.1 }
+        : { kind: 'save', itemId: item.id, itemName: item.name, displayName: label(catalog, item), missingGold: missing, reason: c.reason, score: c.weight - missing / 10000 }
     }
     // Far-away purchases are noise; only plan what is reachable soon.
     if (suggestion.kind === 'save' && missing > itemRules.maxMissingGold) continue

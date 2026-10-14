@@ -58,4 +58,10 @@ describe('advise', () => {
     const a = advise(snap(0, [p('Zed'), p('Darius')], [], 'Ahri'), catalog)
     expect(a.suggestions).toEqual([])
   })
+
+  it('shows localized names when available, matching rules on English ones', () => {
+    const a = advise(snap(900, [p('Soraka'), p('Zed')]), { ...catalog, itemNames: { 1: 'Llamada del Verdugo' } })
+    expect(a.suggestions[0].itemName).toBe("Executioner's Calling")
+    expect(a.suggestions[0].displayName).toBe('Llamada del Verdugo')
+  })
 })

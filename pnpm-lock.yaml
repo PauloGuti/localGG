@@ -26,6 +26,9 @@ importers:
       '@localgg/engine':
         specifier: workspace:*
         version: link:../../packages/engine
+      '@localgg/lcu':
+        specifier: workspace:*
+        version: link:../../packages/lcu
       '@localgg/liveclient':
         specifier: workspace:*
         version: link:../../packages/liveclient
@@ -74,6 +77,8 @@ importers:
         version: link:../engine
 
   packages/engine: {}
+
+  packages/lcu: {}
 
   packages/liveclient:
     dependencies:

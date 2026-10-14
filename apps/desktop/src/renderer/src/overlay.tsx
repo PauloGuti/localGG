@@ -21,7 +21,7 @@ function Row({ s, patch }: { s: Suggestion; patch: string }) {
       <img src={icon(patch, s.itemId)} alt="" />
       <div>
         <div className="name">
-          {s.itemName}
+          {s.displayName}
           <span className={`tag ${s.kind === 'buy-now' ? 'now' : ''}`}>{TAG[s.kind]}</span>
           {s.missingGold > 0 && <span className="muted"> · faltan {s.missingGold}</span>}
         </div>

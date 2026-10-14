@@ -1,8 +1,9 @@
 import path from 'node:path'
 import { BrowserWindow, app, globalShortcut, screen } from 'electron'
 import { autoUpdater } from 'electron-updater'
-import { loadCatalog } from '@localgg/data'
+import { ddragonLocale, loadCatalog } from '@localgg/data'
 import { advise, type Catalog } from '@localgg/engine'
+import { getClientLocale, readCredentials } from '@localgg/lcu'
 import { fetchAllGameData, toSnapshot } from '@localgg/liveclient'
 import { STATE_CHANNEL, type OverlayState } from '../shared'
 import { mockGame } from './mock'
@@ -48,11 +49,24 @@ function createOverlay(): BrowserWindow {
   return win
 }
 
+/** The game client's language wins; the OS language is only a fallback when the client is closed. */
+async function detectLocale(): Promise<string> {
+  const creds = readCredentials()
+  if (creds) {
+    try {
+      return ddragonLocale(await getClientLocale(creds))
+    } catch {
+      // client still starting up
+    }
+  }
+  return ddragonLocale(app.getLocale())
+}
+
 async function startMonitor(): Promise<void> {
   send({ status: 'loading-data' })
   let data: { catalog: Catalog; version: string }
   try {
-    data = await loadCatalog(path.join(app.getPath('userData'), 'ddragon'))
+    data = await loadCatalog(path.join(app.getPath('userData'), 'ddragon'), await detectLocale())
   } catch (e) {
     send({ status: 'error', message: `No se pudieron cargar los datos: ${(e as Error).message}` })
     return

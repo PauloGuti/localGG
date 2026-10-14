@@ -26,7 +26,7 @@ export async function latestVersion(): Promise<string> {
 }
 
 /** Loads items and champions for the latest patch (English names), cached per patch on disk. */
-export async function loadCatalog(cacheDir: string): Promise<{ catalog: Catalog; version: string }> {
+export async function loadCatalog(cacheDir: string, locale = 'en_US'): Promise<{ catalog: Catalog; version: string }> {
   let version: string
   try {
     version = await latestVersion()
@@ -45,6 +45,19 @@ export async function loadCatalog(cacheDir: string): Promise<{ catalog: Catalog;
     getJson(`${base}/champion.json`)
   )
 
+  // Localized names are display-only; failing to fetch them must never break the app.
+  let itemNames: Record<number, string> | undefined
+  if (locale !== 'en_US') {
+    try {
+      const loc = await cached<{ data: Record<string, any> }>(path.join(cacheDir, `${version}-item-${locale}.json`), () =>
+        getJson(`${DDRAGON}/cdn/${version}/data/${locale}/item.json`)
+      )
+      itemNames = Object.fromEntries(Object.entries(loc.data).map(([id, i]) => [+id, i.name as string]))
+    } catch {
+      itemNames = undefined
+    }
+  }
+
   const items: Record<number, ItemData> = {}
   for (const [id, i] of Object.entries(rawItems.data)) {
     items[+id] = {
@@ -58,7 +71,17 @@ export async function loadCatalog(cacheDir: string): Promise<{ catalog: Catalog;
   for (const c of Object.values<any>(rawChamps.data)) {
     champions[c.id] = { id: c.id, name: c.name, tags: c.tags, attack: c.info.attack, magic: c.info.magic }
   }
-  return { catalog: { items, champions }, version }
+  return { catalog: { items, champions, itemNames }, version }
 }
 
 export const itemIconUrl = (version: string, itemId: number) => `${DDRAGON}/cdn/${version}/img/item/${itemId}.png`
+
+/** Maps an OS locale such as "es-MX" or "pt-BR" to a Data Dragon locale; unknown ones fall back to English. */
+export function ddragonLocale(osLocale: string): string {
+  const supported = ['es_ES', 'es_MX', 'pt_BR', 'fr_FR', 'de_DE', 'it_IT', 'pl_PL', 'tr_TR', 'ru_RU', 'ko_KR', 'ja_JP', 'zh_CN', 'zh_TW', 'en_US']
+  const norm = osLocale.replace('-', '_')
+  if (supported.includes(norm)) return norm
+  const lang = norm.split('_')[0]
+  if (lang === 'es') return 'es_ES'
+  return supported.find((l) => l.startsWith(lang + '_')) ?? 'en_US'
+}

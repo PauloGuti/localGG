@@ -36,6 +36,8 @@ export interface Catalog {
   items: Record<number, ItemData>
   /** Keyed by Data Dragon id or display name (both lookups supported by `findChampion`). */
   champions: Record<string, ChampionData>
+  /** Localized item names for display only; rules always match on the English `name`. */
+  itemNames?: Record<number, string>
 }
 
 export type Role = 'ad' | 'ap' | 'tank'
@@ -53,6 +55,8 @@ export interface Suggestion {
   kind: SuggestionKind
   itemId: number
   itemName: string
+  /** Name in the user's language (falls back to `itemName`). */
+  displayName: string
   /** Gold missing to afford `itemId` (0 if affordable). */
   missingGold: number
   reason: string
