@@ -16,7 +16,7 @@
     "@localgg/data": "workspace:*",
     "@localgg/engine": "workspace:*",
     "@localgg/liveclient": "workspace:*",
-    "electron-updater": "^6.8.9",
+    "electron-updater": "^6.8.11",
     "@localgg/lcu": "workspace:*"
   },
   "devDependencies": {
